@@ -1,17 +1,22 @@
 <template>
   <div class="hello">
 
-    <h1>Artist Directory</h1>
+    
     <div class="artistBox">
-      <input  type="text" v-on:input="runFilter()" v-model="filter"><br />
+      <h1>Artist Directory</h1>
+      <div>
+      <input class="filterInput"  type="text" v-on:input="runFilter()" v-model="filter"><br />
       <button class="addButton" v-on:click="showInputBoxes">Add artist</button>
+      </div>
     </div>
 
     <div class="artistInputs" v-if="addButtonPressed">
         <input placeholder="Artist Name" type="text" v-model="artistName"><br />
         <input placeholder="About artist" type="text" v-model="aboutArtist"><br />
         <input placeholder="Image url" type="text" v-model="url"><br />
-        <button class="addButton" v-on:click="addArtist(artistName, aboutArtist, url)">Add</button>
+        <div class="artistButton">
+        <button class="addButton2" v-on:click="addArtist(artistName, aboutArtist, url)">Add</button>
+        </div>
     </div>
 
     <div v-if="artistsArray.length > 0 && !filter">
@@ -63,6 +68,7 @@ export default {
     showInputBoxes() {
       console.log("hlhl")
       this.addButtonPressed = true
+
     },
   addArtist(artistName, aboutArtist, url) {
     const artist = {
@@ -75,7 +81,7 @@ export default {
     this.idNum++
     console.log(this.idNum)
         console.log(this.artistsArray)
-
+    this.addButtonPressed = false
   },
   deleteBtn(id) {
     console.log(id)
@@ -94,25 +100,72 @@ export default {
 <style scoped>
 
 .artistBox {
-  display: flex;
+    margin: auto;
+    border: solid 1px silver;
+    padding: 20px;
+    max-width: 600px;
+    
 }
-.box{
-  width: 500px;
-  height: 40px;
-  border: solid 1px rgb(204, 204, 204);
-  border-radius: 5px;
- 
+.artistBox div{
+    display: flex;
+}
+.filterInput {
+    width: 500px;
+    height: 30px;
 }
 .addButton {
-    margin-left: 10px;
-    padding: 5px;
-    font-size: 1.5em;
-    border: none;
-  }
+    margin-left: 5px;
+}
+
 .artistInputs {
+    margin: auto;
+    width: 400px;
 }
+.artistInputs input{
+   width: 100%;
+   height: 30px;
+    text-align: center;
+}
+
+.artistButton {
+    margin: auto;
+    width: 200px;
+}
+.artistInputs button {
+    width: 100%;
+    height: 30px;
+
+}
+
 .artistCard {
-  display: flex;
-  justify-content: space-between;
+    border: solid 1px silver;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: "pic  contents  delete";
+    padding: 5px;
+    max-width: 600px;
+    margin: 10px auto;
+
 }
+
+.artistCard img {
+    grid-area: pic;
+    display: block;
+    width: 70%;
+    border-radius: 5px;
+}
+.artistCard span {
+    grid-area: contents;
+}
+.artistCard button{
+    grid-area: delete;
+    width: 50%;
+    height: 30%;
+    margin: auto;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
 </style>
